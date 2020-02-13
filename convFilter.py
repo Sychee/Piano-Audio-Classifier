@@ -59,7 +59,7 @@ def filteredData(root_path: str) -> list:
     root_path(str): path on system to msmd data set
     """
     
-    files = [name for name in os.listdir(root_path)] #grabs all the piece names by folder
+    files = [name for name in os.listdir(root_path) if not name.startswith('.')] #grabs all the piece names by folder
     pieces = [Piece(root=root_path, name=data) for data in files] #converts every single piece into a Piece object
     
     return [piece for piece in pieces if not len(piece.available_performances)==0] #filters out pieces that don't have available scores/performances
