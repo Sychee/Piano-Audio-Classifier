@@ -8,7 +8,7 @@ import split_folders
 def InitiateData(root): #clears all data in root folder and creates all/all folder
     for item in os.listdir(root):
         assert item in ["all", "train", "validation", "test", ""] #safety check to make sure root is correct
-        shutil.rmtree(os.path.join(root,item)) #clears all items in root
+        shutil.rmtree(os.path.join(root,item)) # WARNING: CLEARS ALL ITEMS IN ROOT!!! MAKE SURE ROOT IS CORRECT.
     allDir = os.path.join(root, "all")
     os.mkdir(allDir)
     allallDir = os.path.join(allDir, "all")
