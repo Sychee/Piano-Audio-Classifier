@@ -5,10 +5,21 @@ from collections import defaultdict
 import cv2
 import split_folders
 
+def countClasses(root): #counts the number of classes and data within those classes
+    countClass = 0
+    countData = 0
+    for dataClass in os.listdir(root):
+        countClass +=1
+        for dataItem in os.listdir(root + "/" + dataClass):
+            countData += 1
+            
+    print(f"Total Classes: {countClass}")
+    print(f"Total Data: {countData}")
+
 def InitiateData(root): #clears all data in root folder and creates all/all folder
     for item in os.listdir(root):
         assert item in ["all", "train", "validation", "test", ""] #safety check to make sure root is correct
-        shutil.rmtree(os.path.join(root,item)) # WARNING: CLEARS ALL ITEMS IN ROOT!!! MAKE SURE ROOT IS CORRECT.
+        shutil.rmtree(os.path.join(root,item)) #clears all items in root
     allDir = os.path.join(root, "all")
     os.mkdir(allDir)
     allallDir = os.path.join(allDir, "all")
@@ -18,7 +29,8 @@ def populateData(filtered_performances, root, save=True):
     """
     Slices spectrograms in filtered_performances and saves images in all/all folder with class as folder name
     """
-    InitiateData(root) #clear data in root folder
+    if save:
+        InitiateData(root) #clear data in root folder
     root = os.path.join(root, "all/all")
     class_count = defaultdict(int)
     data_count = 0
@@ -87,6 +99,8 @@ if __name__ == "__main__":
     DATA_ROOT_MSMD = '/Users/gbanuru/PycharmProjects/HACKUCI/msmd_aug_v1-1_no-audio/'
     dataRoot = "/Users/gbanuru/PycharmProjects/HACKUCI/msmd/tutorials/data_root"
 
-    filtered_performances = convFilter.filteredData(DATA_ROOT_MSMD) #creates a list with piece object
-    populateData(filtered_performances[:5], dataRoot) #store data from 5 performances at data_root
-    divideDataIntoTrainValTestSets(dataRoot) #divide data from data_root into train, validation, test sets
+    #filtered_performances = convFilter.filteredData(DATA_ROOT_MSMD) #creates a list with piece object
+    #populateData(filtered_performances[:5], dataRoot, save=False) #store data from 5 performances at data_root
+    #divideDataIntoTrainValTestSets(dataRoot) #divide data from data_root into train, validation, test sets
+
+    countClasses(dataRoot + "/all/all")
