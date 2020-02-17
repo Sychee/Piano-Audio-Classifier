@@ -99,8 +99,8 @@ if __name__ == "__main__":
     DATA_ROOT_MSMD = '/Users/gbanuru/PycharmProjects/HACKUCI/msmd_aug_v1-1_no-audio/'
     dataRoot = "/Users/gbanuru/PycharmProjects/HACKUCI/msmd/tutorials/data_root"
 
-    #filtered_performances = convFilter.filteredData(DATA_ROOT_MSMD) #creates a list with piece object
-    #populateData(filtered_performances[:5], dataRoot, save=False) #store data from 5 performances at data_root
-    #divideDataIntoTrainValTestSets(dataRoot) #divide data from data_root into train, validation, test sets
+    filtered_performances = convFilter.filteredData(DATA_ROOT_MSMD) #creates a list with piece object
+    populateData(filtered_performances[:50], dataRoot, save=False) #store data from 50 performances at data_root
+    divideDataIntoTrainValTestSets(dataRoot) #divide data from data_root into train, validation, test sets
 
     countClasses(dataRoot + "/all/all")
