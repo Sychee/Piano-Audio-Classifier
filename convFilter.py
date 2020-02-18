@@ -82,7 +82,9 @@ def getSpectrogram(spectro_index: int, performance) -> list:
     """
     Retrieves spectrogram from performance piece
     """
+    maxSpecValue = 1.3246415
     spectrogram = performance.load_spectrogram() #load corresponding piece's spectogram
     image = np.reshape(spectrogram[:,spectro_index], (92, -1)) #slices spectrogram for specific index
+    image *= (255/maxSpecValue) #normalize data from 0-maxSpecValue to 0-255
+    image = np.clip(image.astype(int), a_min = 0, a_max = 255) #convert data into ints clipped between 0-255
     return image
-
